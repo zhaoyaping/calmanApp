@@ -1,4 +1,5 @@
 const host = 'http://jtrznjk.com:10768/index.php/API/';
+// const host = 'http://localhost:8080/index.php/API/';
 export default {
 	host,
 	myAlert(str,click){               //创建自定义弹框

@@ -37,7 +37,7 @@ export default {
 	  },
 	  mounted () {
 	        //判断cookie
-	        this.user=localStorage.getItem('user')   
+	        this.user=localStorage.getItem('user')
 	        this.pwd=localStorage.getItem('pwd')
 	        let that = this;           //修改this指向
 	        //请求初始化密钥
@@ -72,7 +72,7 @@ export default {
 						            }else{
 						            	localStorage.removeItem('pwd')               	//未选中清除cookie
 						            }
-						            this.$router.push('Home')  
+						            this.$router.push('Home')
 					          }else{
 						            // this.tishi=res.msg
 						            // this.showTiShi=true
@@ -141,7 +141,7 @@ header img:nth-of-type(2){
 	top:10px;
 }
 .login-warp p input{
-	background:transparent; 
+	background:transparent;
 	width: 80%;
 	height:30px;
 	border:none;
@@ -152,7 +152,7 @@ header img:nth-of-type(2){
 }
 #checkbox{
 	display: inline-block;
-	height: 15px; 
+	height: 15px;
 	width: 15px;
 	margin: 15px 2px 15px 15px;
 }

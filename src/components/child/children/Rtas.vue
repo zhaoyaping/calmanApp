@@ -1,6 +1,6 @@
 <template>
 		<div class="historywarp" id="bos">
-			
+
 			<div id="top">
 				<div id="myGif" v-show='f' style="width:100%;height:100%;background:rgba(255,255,255,0.8);z-index:1000;text-align: center;position:relative;top:150px;">
 					<img src="@/assets/img/1.gif" style="width:30px;position:absolute;top:0px;opacity:0.5;left:48%;background:#fff;border-radius:10px;">
@@ -28,7 +28,7 @@
 							{{items.dw}}
 						</span>
 					</p>
-				</div>	
+				</div>
 			</div>
 			<div id="bottom" style="margin-bottom:60px;">
 				<ul>
@@ -72,10 +72,10 @@
 				width2:0,                                  //图片本身宽度
 				n:1,                                       //原图与展示图大小比率
 				num:'',									   //缸数
-				type:'a',                                  //正面 
+				type:'a',                                  //正面
 				intre:'',
 				f:false,
-				k:false                           
+				k:false
 			}
 		},
 		methods:{
@@ -101,7 +101,6 @@
 						this.addd()                        //引用addd方法获取原图宽度及比例
 						this.top=res.data.tab.top          //保存top部数据
 						this.gw=res.data.tab.gw            //保存缸温数据
-						// console.log(this.gw)
 						this.bz=res.data.tab.bz            //保存爆震数据
 						this.dy=res.data.tab.dy            //保存电压数据
 						this.sign=res.data.sign            //保存图标注释数据
@@ -121,16 +120,14 @@
 						this.$router.push({name:'Login'})
 					}
 				})
-			},	
+			},
 			care(){                                         //温度计绘制
-				// console.log(456)
 				this.widths=$('.spam').width()              //获取父元素宽度
 				let widthBar=(this.widths)*0.3              //温度计宽度
 				this.ofst=-(this.widths-widthBar)/2       //轴线偏移量
 				for (let i = 0; i < this.gw.length; i++) {
 					let id=this.gw[i]['column']                //获取父元素ID
 					// this.widths.push($('#'+this.gw[i]['column']).width())//获取宽度
-					// console.log(id)
 					if(!document.getElementById(id)){            //父元素span存在时执行
 						return
 					}
@@ -140,11 +137,11 @@
 					let axisColor = '#fff';                          //轴线颜色
 					let option = {                                   //图标配置項
 						grid: {                                      //图表位置
-						    left: '0',  
-						    right: '0',  
-						    bottom: '25%', 
+						    left: '0',
+						    right: '0',
+						    bottom: '25%',
 						    top:'10%' ,
-						    containLabel: true  
+						    containLabel: true
 						},
 						yAxis: [{                                     //Y轴信息
 							min:0,
@@ -176,7 +173,7 @@
 								show: false
 							},
 						}],
-						series: [                                     //数据信息 
+						series: [                                     //数据信息
 							{
 								type: 'bar',
 								barWidth: widthBar,
@@ -189,7 +186,7 @@
 								data: data.map(function(d) {
 								    return xMax
 								}),
-							}, 
+							},
 							{
 								type: 'bar',
 								barWidth: widthBar,
@@ -210,7 +207,7 @@
 											barBorderRadius: [0, 0, 0, 0],
 											color:'rgba(176,255,64,0.6)'
 											// color:'#B1FE40',
-										}			    
+										}
 									}
 								}],
 							}
@@ -252,27 +249,53 @@
 			getData(n){                                    //二次请求获取实时数据
 				let date={'type':n}                        //订阅实时监控
 				this.wendu=[]
-				// console.log(this.wendu)
+
 				// $.ajaxSetup({async : false});
 				$.ajax({type:'post',url:globalData.host + 'Device/GetData',data:date,xhrFields:{withCredentials:true}}).then((res)=>{
-					// console.log(res)
 					let AllArr=res.data
-					if(res.status == 1) {                  
+					if(res.status == 1) {
 						for(let key in AllArr) {           //遍历获取到的数据
 							for(let i in AllArr[key]) {
 								if(key=='gw'){             //判断是否为缸温
-									// console.log(AllArr[key][i])
+
 									this.wendu.push(AllArr[key][i])  //若果是缸温就添加到数据组
 									// let a=parseInt(Math.random()*650)
 									// this.wendu.push(a)
-								}else{                      
+								}else{
+                  if(key=='sign'){
+                    if(i == 'ymzxqwzzl'){AllArr[key][i]=AllArr[key][i]*0.01}
+                    if(i == 'ptfwzl'){AllArr[key][i] = AllArr[key][i]*0.01}
+                    if(i == 'jyyl'){AllArr[key][i] = AllArr[key][i]/2}
+                    if(i == 'wglfdjjyyl'){AllArr[key][i] = AllArr[key][i]/2}
+                    if(i == 'wlzyqckyl'){AllArr[key][i] = AllArr[key][i]*0.1}
+                    if(i == 'kqjqwd'){AllArr[key][i] = AllArr[key][i]*0.1}
+                    if(i == 'jqzgkqyl'){AllArr[key][i] = AllArr[key][i]*0.1}
+                    if(i == 'tezcwljqk'){AllArr[key][i] = AllArr[key][i]*0.1}
+                    if(i == 'teycpqk'){AllArr[key][i] = AllArr[key][i]*0.1}
+                  };
+                  if(key=='top'){
+                    if (i == 'fdjpjglyz') { AllArr[key][i] = AllArr[key][i]*0.01}
+                    if (i == 'jldy') {AllArr[key][i] = AllArr[key][i]*10}
+                    if (i == 'fdjzs') {AllArr[key][i] = AllArr[key][i]/2}
+                    if (i == 'jldpl') {AllArr[key][i] = AllArr[key][i]*0.01}
+                    if (i == 'qtyll') {AllArr[key][i] = AllArr[key][i]*1.6}
+                    if (i == 'rywd') {AllArr[key][i] = AllArr[key][i]*0.1}
+                    if (i == 'ryyl') {AllArr[key][i] = AllArr[key][i]/2-95}
+                    if (i == 'ryfyc') {AllArr[key][i] = AllArr[key][i]*0.1}n
+                    if (i == 'qtyll') {AllArr[key][i] = AllArr[key][i]*1.6}
+                    if (i == 'jyyl') {AllArr[key][i] = AllArr[key][i]/2}
+                    if (i == 'rybl') {AllArr[key][i] = AllArr[key][i]*0.1}
+                    if (i == 'sjfdjdhzs') {AllArr[key][i] = AllArr[key][i]*0.1}
+                    if (i == 'jylqqyc') {AllArr[key][i] = AllArr[key][i]/2}
+                    if (i == 'jqzgkqll') {AllArr[key][i] = AllArr[key][i]*1.6}
+                    if (i == 'xdcdy1') {AllArr[key][i]= AllArr[key][i]/2}
+                  }
 									$("#"+i).text(AllArr[key][i]);//将获取到的数据添加到对应的标签内
-								}	
+								}
 							}
 						}
 						this.care()
-						// console.log(res)
-						// console.log(this.wendu)
+
 					}else if(res.status==0){
 						clearInterval(window.intre)
 						window.intre=null
@@ -372,7 +395,7 @@
 	}
 	#box #float-warp p span{
 		font-size:6px;
-		white-space:nowrap; 
+		white-space:nowrap;
 	}
 	#bottom{
 		display: flex;
@@ -403,7 +426,7 @@
 	}
 	#bottom ul li:nth-child(2){
 		height:100px;
-		padding-top:30px; 
+		padding-top:30px;
 	}
 	#bottom ul .txt{
 		height:75px;
