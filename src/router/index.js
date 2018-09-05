@@ -6,6 +6,9 @@ import Login from '@/components/Login.vue'
 import Help from '@/components/Help.vue'
 import Home from '@/components/Home.vue'
 import Map from '@/components/child/Map.vue'
+import Index from '@/components/child/Index.vue'
+import MonitorIndex from '@/components/child/MonitorIndex.vue'
+import DeviceList from '@/components/child/DeviceList.vue'
 import Monitor from '@/components/child/Monitor.vue'
 import Setting from '@/components/child/Setting.vue'
 import Newpwd from '@/components/child/children/Newpwd.vue'
@@ -28,12 +31,13 @@ export default new Router({
       path:'/Guide',
       name:'Guide',
       component:Guide,
-    },    
+    },
     {
       path:'/Login',
       name:'Login',
       component:Login,
-    },{
+    },
+    {
       path:'/Help',
       name:'Help',
       component:Help,
@@ -45,8 +49,23 @@ export default new Router({
       children:[
       {
         path:'/Home',
-        redirect:'/Map' 
+        redirect:'/Index'
       },
+        {
+          path:'/Index',
+          name:'Index',
+          component:Index,
+        },
+        {
+          path:'/MonitorIndex',
+          name:'MonitorIndex',
+          component:MonitorIndex,
+        },
+        {
+          path:'/DeviceList',
+          name:'DeviceList',
+          component:DeviceList,
+        },
       	{
       		path:'/Map',
       		name:'Map',
@@ -65,7 +84,7 @@ export default new Router({
           path:'/Map/Details',
           name:'Details',
           component:Details,
-        }  
+        }
       ]
     },
     {

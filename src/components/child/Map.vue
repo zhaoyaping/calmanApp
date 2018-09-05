@@ -21,7 +21,7 @@
 				map.centerAndZoom(new BMap.Point(113.533, 37.883),8);      //初始化地图，设置中心点坐标和地图级别
 				map.setCurrentCity("yang");                                //设置地图显示的城市，此项是必须设置的
 				map.enableScrollWheelZoom(true);                           //开启鼠标滚轮缩放
-				this.maps=map            
+				this.maps=map
 			},
 			paint(){                                                       //获取数据库数据并标注
 				let p=this.maplist;                                        //保存数据
@@ -42,7 +42,7 @@
 						markers=new BMap.Marker(point,{icon:myIcon2});
 						markers.addEventListener("click",function(){
 							globalData.myAlert("该项目为他人所有，您无权查看！",function(){})
-						})                  
+						})
 					}
 					this.maps.addOverlay(markers);
 					let label=new BMap.Label(i+1,{offset:new BMap.Size(14,5)});
@@ -72,11 +72,11 @@
 		mounted(){
 			this.map();
 			let that=this
-			$.post({url:globalData.host + 'Project/GetMapList',xhrFields:{withCredentials:true}}).then((res)=>{ 
+			$.post({url:globalData.host + 'Project/GetMapList',xhrFields:{withCredentials:true}}).then((res)=>{
 	        	if(res.status==1){
 					that.maplist=res.data
 	        		that.l=that.maplist.length                                  //将获取到的数据长度保存
-	        		that.paint(); 
+	        		that.paint();
 				}else if(res.status==0){
 					globalData.myAlert(res.msg)
 				}else if(res.status==-1){

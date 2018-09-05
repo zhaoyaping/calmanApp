@@ -51,7 +51,7 @@
 			for(let i = 0 ; i < this.choose.length ; i++){
 				this.choose[i] = false;
 			}
-			this.$set(this.choose, index, true);		
+			this.$set(this.choose, index, true);
 		}
 	}
 </script>

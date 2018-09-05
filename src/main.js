@@ -7,7 +7,10 @@ import $ from 'jquery'
 import md5 from 'js-md5'
 import echarts from 'echarts'
 import VueTouch from 'vue-touch'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 
+Vue.use(ElementUI);
 Vue.use(VueTouch,{name:'v-touch'})
 Vue.prototype.$echarts=echarts
 Vue.prototype.$md5 = md5
